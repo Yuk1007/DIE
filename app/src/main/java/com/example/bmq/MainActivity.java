@@ -160,6 +160,8 @@ public class MainActivity extends AppCompatActivity
         Button answerBtn = findViewById(view.getId());
         String btnText = answerBtn.getText().toString();
 
+        String explanation = explanationArray.get(randomNum);
+
         String alertTitle;
         if (btnText.equals(rightAnswer))
         {
@@ -174,7 +176,7 @@ public class MainActivity extends AppCompatActivity
         // ダイアログを作成
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(alertTitle);
-        builder.setMessage("答え : " + rightAnswer);
+        builder.setMessage("答え : " + rightAnswer + "\n" + explanation);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener()
         {
             @Override
