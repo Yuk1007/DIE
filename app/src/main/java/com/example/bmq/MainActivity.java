@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity
     private int quizCount = 1;
     static final private int QUIZ_COUNT = 5;
 
+    private int randomNum = 0;
+
     ArrayList<ArrayList<String>> quizArray = new ArrayList<>();
     ArrayList<String> explanationArray = new ArrayList<>();
 
@@ -108,7 +110,7 @@ public class MainActivity extends AppCompatActivity
             tmpquizarray.add(quizData[i][3]);  // 選択肢２
             tmpquizarray.add(quizData[i][4]);  // 選択肢３
 
-            explanationArray.add(explanationData[i]);//解説の保存
+            explanationArray.add(explanationData[i]);//解説の保存（explanationArrayに解説が入ってる）
 
             // tmpquizarrayをquizArrayに追加する
             quizArray.add(tmpquizarray);
@@ -124,7 +126,7 @@ public class MainActivity extends AppCompatActivity
 
         // ランダムな数字を取得
         Random random = new Random();
-        int randomNum = random.nextInt(quizArray.size());
+        randomNum = random.nextInt(quizArray.size());
 
         // randomNumを使って、quizArrayからクイズを一つ取り出す
         ArrayList<String> quiz = quizArray.get(randomNum);
