@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity
     static final private int QUIZ_COUNT = 5;
 
     ArrayList<ArrayList<String>> quizArray = new ArrayList<>();
+    ArrayList<String> explanationArray = new ArrayList<>();
 
     String quizData[][] = {
             // {"都道府県名", "正解", "選択肢１", "選択肢２", "選択肢３"}
@@ -46,6 +47,37 @@ public class MainActivity extends AppCompatActivity
                     "○○株式会社△△部の○○です。", "こんにちは\n" +
                     "○○株式会社△△部の○○です。", "よっす！\n" +
                     "○○株式会社△△部の○○だ。"},
+    };
+
+    //解説データ、クイズデータと配列番号は対応してる
+    String explanationData[] = {
+            "TOは必ずメールの要件を伝えたい、メインの宛先です。担当者が複数いる場合は、TOに複数人のメールアドレスを書きます。「CC」を使いたくなりますが、「CC」は「メインの宛先ではありませんが、参考に送ります」という意味があるので、必ず読んでほしい場合は「To」を使いましょう。",
+            "「CC」は全員のメールアドレスが送信先に表示されるので、送信者は各関係者を知っていても受信者がお互いを知らない場合もあります。情報漏えいにあたらないよう細心の注意を払いましょう。",
+            "「BCC」は、例えば複数の顧客へ同じ内容のメールを一斉に送りたい、取引先とのメールのやり取りをこっそり上司にも送りたいときなど、参考先を隠したい場合に使います。",
+            "メインの宛先である「To」にメールアドレスを入れずに、「CC」や「BCC」だけ入力してメールを送信してしまうと、受信者側の迷惑メールフォルダに入ってしまう可能性があります。",
+            "・宛名\n" +
+                    "・挨拶、名乗り\n" +
+                    "・本文\n" +
+                    "・結びの言葉\n" +
+                    "・署名",
+            "・会社名\n" +
+                    "・部署名\n" +
+                    "・役職名\n" +
+                    "・名前\n" +
+                    "・敬称",
+            "「山口部長様」のように、役職と敬称を重ねて書いている人がいますが、これは間違った書き方です。\n" +
+                    "「部長」「課長」などの役職名は「様」と同様に敬称ですから、正しい書き方は、以下のとおりです。\n" +
+                    "・○○部　山口部長\n" +
+                    "・○○部　部長　山口様",
+            "団体向けの宛名では「○○株式会社御中」または「○○株式会社　△△部御中」と書きます。\n",
+            "送信先が部署全体や、複数の取引先等の場合は「各位」を使います。\n" +
+                    "○○株式会社　××部　各位\n" +
+                    "お取引先　各位\n" +
+                    "名前を書く場合は、必ず役職順に書きましょう。\n" +
+                    "並び方は、横でも縦でも構いません。\n" +
+                    "○○株式会社　\n" +
+                    "吉田様、川口様、林様",
+            "手紙と違って、時候の挨拶はいらないです。",
     };
 
     @Override
@@ -66,18 +98,20 @@ public class MainActivity extends AppCompatActivity
         for (int i = 0; i < quizData.length; i++)
         {
             // 新しいArrayListを準備
-            ArrayList<String> tmpArray = new ArrayList<>();
+            ArrayList<String> tmpquizarray = new ArrayList<>();
+
 
             // クイズデータを追加
-            tmpArray.add(quizData[i][0]);  // 都道府県名
-            tmpArray.add(quizData[i][1]);  // 正解
-            tmpArray.add(quizData[i][2]);  // 選択肢１
-            tmpArray.add(quizData[i][3]);  // 選択肢２
-            tmpArray.add(quizData[i][4]);  // 選択肢３
+            tmpquizarray.add(quizData[i][0]);  // 都道府県名
+            tmpquizarray.add(quizData[i][1]);  // 正解
+            tmpquizarray.add(quizData[i][2]);  // 選択肢１
+            tmpquizarray.add(quizData[i][3]);  // 選択肢２
+            tmpquizarray.add(quizData[i][4]);  // 選択肢３
 
-            // tmpArrayをquizArrayに追加する
-            quizArray.add(tmpArray);
+            explanationArray.add(explanationData[i]);//解説の保存
 
+            // tmpquizarrayをquizArrayに追加する
+            quizArray.add(tmpquizarray);
 
         }
         showNextQuiz();
