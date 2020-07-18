@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity
         // ダイアログを作成
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(alertTitle);
-        builder.setMessage("答え : " + rightAnswer + "\n" + explanation);
+        builder.setMessage("答え : " + rightAnswer + "\n" + explanation);//解説の表示に成功
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener()
         {
             @Override
