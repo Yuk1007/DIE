@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">BMQ</string>
+    <string name="main" />
+    <string name="move">move</string>
+    <string name="sub">aaa</string>
+    <string name="return_sub">return</string>
 </resources>

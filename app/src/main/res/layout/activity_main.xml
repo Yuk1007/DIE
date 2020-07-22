@@ -5,9 +5,11 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#dfe"
         tools:context=".MainActivity"
         android:gravity="center_horizontal"
         android:orientation="vertical">
+
 
     <TextView
             android:id="@+id/countLabel"
@@ -24,6 +26,19 @@
             android:text="Question"
             android:textSize="24sp"
             android:layout_marginTop="60dp"/>
+
+    <TextView
+        android:text="@string/main"
+        android:textSize="30sp"
+        android:layout_margin="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3"/>
+
 
     <Button
             android:id="@+id/answerBtn1"
@@ -56,5 +71,6 @@
             android:text="answer4"
             android:layout_marginTop="6dp"
             android:onClick="checkAnswer" tools:ignore="OnClick"/>
+
 
 </LinearLayout>

@@ -77,7 +77,10 @@ public class MainActivity extends AppCompatActivity
 
         }
         showNextQuiz();
+
+
     }
+
 
     public void showNextQuiz()
     {
@@ -157,5 +160,7 @@ public class MainActivity extends AppCompatActivity
         builder.setCancelable(false);
         builder.show();
     }
+
+
 
 }
