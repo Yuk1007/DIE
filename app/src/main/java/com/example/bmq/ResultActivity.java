@@ -18,7 +18,7 @@ public class ResultActivity extends AppCompatActivity
         setContentView(R.layout.activity_result);
 
         TextView resultLabel = findViewById(R.id.resultLabel);
-        TextView totalScoreLabel = findViewById(R.id.totalScoreLabel);
+//        TextView totalScoreLabel = findViewById(R.id.totalScoreLabel);
 
         // 正解数を取得
         int score = getIntent().getIntExtra("RIGHT_ANSWER_COUNT", 0);
@@ -31,7 +31,7 @@ public class ResultActivity extends AppCompatActivity
 //        totalScore += score;
 //
 //        // TextViewに表示する
-//        resultLabel.setText(score + " / 5");
+        resultLabel.setText(score + " / 5");
 //        totalScoreLabel.setText("トータルスコア : " + totalScore);
 //
 //        // トータルスコアを保存
@@ -45,4 +45,11 @@ public class ResultActivity extends AppCompatActivity
         Intent intent = new Intent(getApplicationContext(), StartActivity.class);
         startActivity(intent);
     }
+
+    public void moreQuiz(View view)
+    {
+        Intent intent = new Intent(getApplicationContext(), StartActivity.class);
+        startActivity(intent);
+    }
+
 }
