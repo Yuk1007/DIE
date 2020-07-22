@@ -15,6 +15,9 @@
         <activity android:name=".ResultActivity">
         </activity>
         <activity android:name=".MainActivity">
+
+        </activity>
+        <activity android:name=".CategoryActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
