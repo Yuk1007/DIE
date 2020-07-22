@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity
     private String rightAnswer;
     private int rightAnswerCount = 0;
     private int quizCount = 1;
-    static final private int QUIZ_COUNT = 5;
+    static final private int QUIZ_COUNT = 10;
 
     private int randomNum = 0;
 
