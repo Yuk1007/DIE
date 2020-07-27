@@ -74,14 +74,22 @@
         android:layout_height="wrap_content"
         android:text="category6"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/category_Btn7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/category_Btn5" />
 
-
-
-
+    <Button
+            android:id="@+id/category_Btn7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="category7"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/category_Btn6" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
