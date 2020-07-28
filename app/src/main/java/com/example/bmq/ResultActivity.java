@@ -23,6 +23,7 @@ public class ResultActivity extends AppCompatActivity
         // 正解数を取得
         int score = getIntent().getIntExtra("RIGHT_ANSWER_COUNT", 0);
 
+        int allquiz = getIntent().getIntExtra("QUIZ_ALLCOUNT",0);
         // トータルスコアの読み出し
 //        SharedPreferences prefs = getSharedPreferences("quizApp", Context.MODE_PRIVATE);
 //        int totalScore = prefs.getInt("totalScore", 0);
@@ -31,7 +32,7 @@ public class ResultActivity extends AppCompatActivity
 //        totalScore += score;
 //
 //        // TextViewに表示する
-        resultLabel.setText(score + " / 5");
+        resultLabel.setText(score + " / " + allquiz);
 //        totalScoreLabel.setText("トータルスコア : " + totalScore);
 //
 //        // トータルスコアを保存
