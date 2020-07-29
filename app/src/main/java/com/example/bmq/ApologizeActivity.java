@@ -51,7 +51,7 @@ public class ApologizeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_apologize);
 
         // ここから追加
         countLabel = findViewById(R.id.countLabel);
