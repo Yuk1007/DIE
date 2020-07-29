@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-public class ApologizeActivity extends AppCompatActivity
+public class ThanksActivity extends AppCompatActivity
 {
 
     private TextView countLabel;
