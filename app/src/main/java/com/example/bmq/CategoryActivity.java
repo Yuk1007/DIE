@@ -61,7 +61,7 @@ public class CategoryActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(getApplication(), MainActivity.class);
+                Intent intent = new Intent(getApplication(), ApologizeActivity.class);
                 startActivity(intent);
             }
         });
@@ -72,7 +72,7 @@ public class CategoryActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(getApplication(), MainActivity.class);
+                Intent intent = new Intent(getApplication(), ReminderActivity.class);
                 startActivity(intent);
             }
         });
@@ -83,7 +83,7 @@ public class CategoryActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(getApplication(), MainActivity.class);
+                Intent intent = new Intent(getApplication(), AskActivity.class);
                 startActivity(intent);
             }
         });
@@ -94,7 +94,7 @@ public class CategoryActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(getApplication(), MainActivity.class);
+                Intent intent = new Intent(getApplication(), ReportActivity.class);
                 startActivity(intent);
             }
         });
@@ -105,7 +105,7 @@ public class CategoryActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(getApplication(), MainActivity.class);
+                Intent intent = new Intent(getApplication(), GuideActivity.class);
                 startActivity(intent);
             }
         });

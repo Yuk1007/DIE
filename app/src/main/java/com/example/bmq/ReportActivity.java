@@ -2,22 +2,22 @@ package com.example.bmq;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-public class ThanksActivity extends AppCompatActivity
+public class ReportActivity extends AppCompatActivity
 {
-
     private TextView countLabel;
     private TextView questionLabel;
+    private TextView eternalquestionLabel;
     private Button answerBtn1;
     private Button answerBtn2;
     private Button answerBtn3;
@@ -33,26 +33,75 @@ public class ThanksActivity extends AppCompatActivity
     ArrayList<ArrayList<String>> quizArray = new ArrayList<>();
     ArrayList<String> explanationArray = new ArrayList<>();
 
+
     String quizData[][] = {
             // {"都道府県名", "正解", "選択肢１", "選択肢２", "選択肢３"}
-            {"さて、この度は○○を頂戴しまして、誠にありがとうございます。有難く拝受させていただきます。", "結構な品", "(品名)", "ありがたいもの", "つまらないもの"},
-            {"(社外)本日はお忙しいところ、打ち合わせのお時間を割いていただきましたこと、○○○○。", "心よりお礼申し上げます", "本当にありがとうございます", "感謝してます", "ありがとう"},
-            {"○○○○、皆様お忙しい中、多大なるご協力をいただき誠にありがとうございました。", "このたびのA(件名)につきまして", "この度は", "今回は", "Aについて"},
-            {"先ほどは△△システムについてご説明いただき、ありがとうございます。 さっそく、詳しい資料もお送りいただき、○○○○。", "重ねてお礼申し上げます", "お礼申し上げます", "感謝します", "ありがとうございました"},
-            {"午前中の出来事に関するものに対するメールを送る時期として適切なものは? ", " その日の夕方まで", "その日の夜", "次の日", "いつでもいい"},
+
+            {"Aについて、取引先へのお知らせメールでは","現状・変更内容を簡潔に曖昧な表現は避けて知らせる。","現状・変更内容を詳しく曖昧な表現は避けて知らせる。","現状・変更内容を簡潔に断定的な表現は避けて知らせる。","現状・変更内容を詳しく断定的な表現は避けて知らせる。"},
+        {"Aについて、⑴に記入すべき内容は","変更前と変更後の日程","変更後の日程","変更が決まった変更前の日程","変更点"},
+        {"Bについて、これは上司に指示を求めるメール例文であるが、この際重要となる点は以下のうちどれ"," 情報の共有を図ること","曖昧な表現で断定しないこと","結論のみを簡潔に示すこと","自分の考えも加えること"},
+        {"Bについて、⑴に入る内容として適切な書き方はどれ"," 箇条書き方式で２つ書く","１文章で書くこと","2点をそれぞれ文章でかくこと","部長の問い合わせ文をコピペする"}
+        ,
     };
 
     //解説データ、クイズデータと配列番号は対応してる
-    String explanationData[] = {
-            "贈り物やお土産を頂いた際は、「結構な品」を使いましょう。「結構な」とは目上の人に素晴らしい、立派なという表現をする言葉です。", "社外の方に、深い感謝の気持ちを表す際は、「心より御礼申し上げます。」を使います。", "何か自分にやってもらったときは、この表現を使いましょう。何をしてもらったかを忘れずに書くとなお良いです。", "お礼を繰り返し書く場合、「重ねて」を使いましょう", "午前中の出来事に関するお礼のメールはその日の夕方までには送るのが良いです。夜に起こったことならば、次の日が良いでしょう。"
-    };
+    String explanationData[] =
+        {"現状・変更内容を簡潔にまとめて知らせるようにします。曖昧な表現はできるだけ避けて、明確な情報を伝えるように心掛けます。",
+                " 【変更前】00:00〜00:00（20xx年00月00日まで）/n" +
+                "【変更後】00:00〜00:00（20xx年00月00日から） のように相手に伝わりやすいよう変更前と後の日程を明確に示す。",
+                " 社内向けの報告メールでは、現状・対応策をまとめて知らせる必要がある。途中経過や結果報告を忘れずにすることで上司との情報の共有を図ります。不安を助長する曖昧な表現はできるだけ避け、明確な報告をするように心掛けましょう",
+                " ・試作品の完成予定日\n" +
+                        "・現段階での概算見積り\n" +
+                        "のように\n簡潔にわかりやすく明確に伝える必要がある"};
+
+        String externalQuizData = "メールA\n"+"件名：営業時間変更のお知らせ\n" +
+                "○○株式会社\n" +
+                "営業部　○○様\n" +
+                "\n" +
+                "平素よりご愛顧頂き誠にありがとうございます。\n" +
+                "株式会社○○・営業部の佐藤です。\n" +
+                "\n" +
+                "さて、この度当社では、\n" +
+                "社内業務の効率化および\n" +
+                "働き方改革の一環として、\n" +
+                "誠に勝手ながら営業時間を下記の通り\n" +
+                "変更させていただくこととなりました。\n" +
+                "\n" +
+                "○○様にはご不便をおかけすることとなり\n" +
+                "大変恐縮ではございますが、\n" +
+                "これまで以上にサービス向上に誠心誠意努めて参りますので、\n" +
+                "何卒ご理解ご協力を賜わりますようお願い申し上げます。\n" +
+                "\n" +
+                "(1)\n" +
+                "※営業日に変更はございません。\n" +
+                "※00時以降のご依頼分につきましては、翌営業日の作業扱いとなります。\n"+"\n"+"\n"+
+                "メールB\n"+
+                "件名：○○株式会社○○部長から問い合わせ\n" +
+                "\n" +
+                "○○課長\n" +
+                "お疲れさまです。佐藤です。\n" +
+                "\n" +
+                "課長が外出中に、○○部長からお電話があり、\n" +
+                "至急、以下の2点について\n" +
+                "確認をお願いしたいとのことです。\n" +
+                "\n" +
+                "（１）\n" +
+                "\n" +
+                "完成予定日につきましては、\n" +
+                "製造工場に電話で確認し、先方にお伝えいたしました。\n" +
+                "見積りにつきましては、2日程お時間いただき\n" +
+                "詳細を詰め、作成次第お渡しする運びとなりました。\n" +
+                "\n" +
+                "以上、取り急ぎ\n" +
+                "ご確認よろしくお願いいたします。\n"
+            ;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_thanks);
+        setContentView(R.layout.activity_report);
 
         // ここから追加
         countLabel = findViewById(R.id.countLabel);
@@ -61,6 +110,10 @@ public class ThanksActivity extends AppCompatActivity
         answerBtn2 = findViewById(R.id.answerBtn2);
         answerBtn3 = findViewById(R.id.answerBtn3);
         answerBtn4 = findViewById(R.id.answerBtn4);
+
+        eternalquestionLabel = findViewById(R.id.eternalquestionLabel);
+
+        eternalquestionLabel.setText(externalQuizData);
 
         // quizDataからクイズ出題用のquizArrayを作成する
         for (int i = 0; i < quizData.length; i++)
@@ -100,6 +153,7 @@ public class ThanksActivity extends AppCompatActivity
 
         // 問題文（都道府県名）を表示
         questionLabel.setText(quiz.get(0));
+
 
         // 正解をrightAnswerにセット
         rightAnswer = quiz.get(1);

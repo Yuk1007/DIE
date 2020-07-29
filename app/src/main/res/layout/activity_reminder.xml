@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#dfe"
-        tools:context=".ThanksActivity"
+        tools:context=".ReminderActivity"
 >
 
     <LinearLayout
@@ -25,12 +25,20 @@
                 android:layout_marginTop="30dp"/>
 
         <TextView
+                android:id="@+id/eternalquestionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="eternalQuestion"
+                android:textSize="24sp"
+                android:layout_marginTop="90dp"/>
+
+        <TextView
                 android:id="@+id/questionLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Question"
                 android:textSize="24sp"
-                android:layout_marginTop="60dp"/>
+                android:layout_marginTop="80dp"/>
 
         <TextView
                 android:text="@string/main"
