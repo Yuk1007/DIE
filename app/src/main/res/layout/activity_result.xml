@@ -5,8 +5,10 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               tools:context=".ResultActivity"
+              android:background="@drawable/question"
               android:gravity="center_horizontal"
               android:orientation="vertical">
+
 
     <TextView
             android:layout_width="wrap_content"
@@ -26,17 +28,17 @@
     <Button
             android:layout_width="140dp"
             android:layout_height="60dp"
-            android:text="もう一度"
             android:textSize="18sp"
             android:layout_marginTop="80dp"
-            android:onClick="moreQuiz"/>
+            android:background="@drawable/again"
+            android:onClick="moreQuiz" />
 
     <Button
             android:layout_width="140dp"
             android:layout_height="60dp"
-            android:text="タイトル"
             android:textSize="18sp"
             android:layout_marginTop="80dp"
+            android:background="@drawable/totitle"
             android:onClick="returnTop"/>
 
 </LinearLayout>

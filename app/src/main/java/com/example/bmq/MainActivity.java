@@ -2,7 +2,10 @@ package com.example.bmq;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+import static com.example.bmq.R.*;
+
 public class MainActivity extends AppCompatActivity
 {
 
@@ -22,6 +27,7 @@ public class MainActivity extends AppCompatActivity
     private Button answerBtn2;
     private Button answerBtn3;
     private Button answerBtn4;
+
 
     private String rightAnswer;
     private int rightAnswerCount = 0;
@@ -161,15 +167,15 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(layout.activity_main);
 
         // ここから追加
-        countLabel = findViewById(R.id.countLabel);
-        questionLabel = findViewById(R.id.questionLabel);
-        answerBtn1 = findViewById(R.id.answerBtn1);
-        answerBtn2 = findViewById(R.id.answerBtn2);
-        answerBtn3 = findViewById(R.id.answerBtn3);
-        answerBtn4 = findViewById(R.id.answerBtn4);
+        countLabel = findViewById(id.countLabel);
+        questionLabel = findViewById(id.questionLabel);
+        answerBtn1 = findViewById(id.answerBtn1);
+        answerBtn2 = findViewById(id.answerBtn2);
+        answerBtn3 = findViewById(id.answerBtn3);
+        answerBtn4 = findViewById(id.answerBtn4);
 
         // quizDataからクイズ出題用のquizArrayを作成する
         for (int i = 0; i < quizData.length; i++)
@@ -248,6 +254,7 @@ public class MainActivity extends AppCompatActivity
         {
             alertTitle = "不正解...";
         }
+
 
         // ダイアログを作成
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
