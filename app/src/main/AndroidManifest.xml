@@ -14,9 +14,11 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ThanksActivity">
+        <activity android:name=".ReminderActivity">
         </activity>
         <activity android:name=".ApologizeActivity">
+        </activity>
+        <activity android:name=".ThanksActivity">
         </activity>
         <activity android:name=".MainActivity">
         </activity>
