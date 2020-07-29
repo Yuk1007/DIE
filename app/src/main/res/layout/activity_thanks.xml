@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         android:background="#dfe"
         tools:context=".MainActivity"
-        >
+>
 
     <LinearLayout
             android:gravity="center_horizontal"

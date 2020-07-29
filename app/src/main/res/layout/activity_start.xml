@@ -22,15 +22,15 @@
             android:layout_width="300dp"
             android:layout_height="60dp"
             android:text="学習モード"
-            android:layout_marginTop="100dp"/>
-<!--            android:onClick="exerciseCategory" />-->
+            android:layout_marginTop="100dp"
+            android:onClick="exerciseCategory" tools:ignore="OnClick"/>
 
     <Button
             android:id="@+id/answerBtn2"
             android:layout_width="300dp"
             android:layout_height="60dp"
             android:text="復習モード"
-            android:layout_marginTop="40dp"/>
-    <!--            android:onClick="againCategory"-->
+            android:layout_marginTop="40dp"
+            android:onClick="againCategory" tools:ignore="OnClick"/>
 
 </LinearLayout>
