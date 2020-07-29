@@ -1,10 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ReminderActivity">
+        android:background="#dfe"
+        tools:context=".ReminderActivity"
+>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+
+
+        <TextView
+                android:id="@+id/countLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Q1"
+                android:textSize="22sp"
+                android:layout_marginTop="30dp"/>
+
+        <TextView
+                android:id="@+id/eternalquestionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="eternalQuestion"
+                android:textSize="24sp"
+                android:layout_marginTop="90dp"/>
+
+        <TextView
+                android:id="@+id/questionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Question"
+                android:textSize="24sp"
+                android:layout_marginTop="80dp"/>
+
+        <TextView
+                android:text="@string/main"
+                android:textSize="30sp"
+                android:layout_margin="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.3"/>
+
+
+        <Button
+                android:id="@+id/answerBtn1"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:text="answer1"
+                android:layout_marginTop="80dp"
+                android:onClick="checkAnswer"/>
+
+        <Button
+                android:id="@+id/answerBtn2"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:text="answer2"
+                android:layout_marginTop="6dp"
+                android:onClick="checkAnswer"/>
+
+        <Button
+                android:id="@+id/answerBtn3"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:text="answer3"
+                android:layout_marginTop="6dp"
+                android:onClick="checkAnswer"/>
+
+        <Button
+                android:id="@+id/answerBtn4"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:text="answer4"
+                android:layout_marginTop="6dp"
+                android:onClick="checkAnswer"/>
+
+
+    </LinearLayout>
+</ScrollView>

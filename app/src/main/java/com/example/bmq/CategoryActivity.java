@@ -105,7 +105,7 @@ public class CategoryActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(getApplication(), MainActivity.class);
+                Intent intent = new Intent(getApplication(), GuideActivity.class);
                 startActivity(intent);
             }
         });

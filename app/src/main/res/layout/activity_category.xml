@@ -5,7 +5,7 @@
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
                                                    android:background="#dfe"
-                                                   tools:context=".MainActivity" tools:ignore="MissingDefaultResource">
+                                                   tools:context=".CategoryActivity" tools:ignore="MissingDefaultResource">
 
 
     <Button
