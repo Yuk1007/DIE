@@ -1,7 +1,10 @@
 package com.example.bmq;
 
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -36,8 +39,18 @@ public class MainActivity extends AppCompatActivity
 
     private int randomNum = 0;
 
+    private OpenHelper helper;
+    private SQLiteDatabase db;
+
     ArrayList<ArrayList<String>> quizArray = new ArrayList<>();
     ArrayList<String> explanationArray = new ArrayList<>();
+
+    // データーベースのバージョン
+    public static final int DATABASE_VERSION = 1;
+    // データーベース名
+    public static final String DATABASE_NAME = "TestDB.db";
+
+
 
     String quizData[][] = {
             // {"都道府県名", "正解", "選択肢１", "選択肢２", "選択肢３"}
@@ -151,17 +164,6 @@ public class MainActivity extends AppCompatActivity
             "時間がなくても必ずチェックするようにしましょう", "学生のやり取りではないので【】使いましょう", "１文の中には用件を詰め込みすぎなようにしましょう", "相手に負担をかけないためにも、就業時間内に送りましょう。遅くなる場合は、夜分遅くに申し訳ありません、と付けましょう", "開封通知はつけなくても大丈夫です", "何かしてもらったとき、謝られるよりも感謝されたほうが嬉しいですよね",
     };
 
-    String quizData_apologize[][] = {
-            {"さて、この度は○○を頂戴しまして、誠にありがとうございます。有難く拝受させていただきます。", "結構な品", "(品名)", "ありがたいもの", "つまらないもの"},
-            {"(社外)本日はお忙しいところ、打ち合わせのお時間を割いていただきましたこと、○○○○。", "心よりお礼申し上げます", "本当にありがとうございます", "感謝してます", "ありがとう"},
-            {"○○○○、皆様お忙しい中、多大なるご協力をいただき誠にありがとうございました。", "このたびのA(件名)につきまして", "この度は", "今回は", "Aについて"},
-            {"先ほどは△△システムについてご説明いただき、ありがとうございます。 さっそく、詳しい資料もお送りいただき、○○○○。", "重ねてお礼申し上げます", "お礼申し上げます", "感謝します", "ありがとうございました"},
-            {"午前中の出来事に関するものに対するメールを送る時期として適切なものは? ", " その日の夕方まで", "その日の夜", "次の日", "いつでもいい"},
-    };
-
-    String quizData_apologize_explanation[] = {
-            "贈り物やお土産を頂いた際は、「結構な品」を使いましょう。「結構な」とは目上の人に素晴らしい、立派なという表現をする言葉です。", "社外の方に、深い感謝の気持ちを表す際は、「心より御礼申し上げます。」を使います。", "何か自分にやってもらったときは、この表現を使いましょう。何をしてもらったかを忘れずに書くとなお良いです。", "お礼を繰り返し書く場合、「重ねて」を使いましょう", "午前中の出来事に関するお礼のメールはその日の夕方までには送るのが良いです。夜に起こったことならば、次の日が良いでしょう。"};
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -242,6 +244,7 @@ public class MainActivity extends AppCompatActivity
         Button answerBtn = findViewById(view.getId());
         String btnText = answerBtn.getText().toString();
 
+        ArrayList<String> SQLquiz = quizArray.get(randomNum);
         String explanation = explanationArray.get(randomNum);
 
         String alertTitle;
@@ -253,6 +256,16 @@ public class MainActivity extends AppCompatActivity
         else
         {
             alertTitle = "不正解...";
+
+            if(helper == null){
+                helper = new OpenHelper(getApplicationContext());
+            }
+
+            if(db == null){
+                db = helper.getWritableDatabase();
+            }
+
+            insertData(db, SQLquiz,explanation);
         }
 
 
@@ -284,5 +297,13 @@ public class MainActivity extends AppCompatActivity
         builder.show();
     }
 
+    private void insertData(SQLiteDatabase db, ArrayList<String> quiz, String EXquiz){
+
+        ContentValues values = new ContentValues();
+        values.put("quiz", String.valueOf(quiz));
+        values.put("explanation", EXquiz);
+
+        db.insert("QUIZARRAY", null, values);
+    }
 
 }
