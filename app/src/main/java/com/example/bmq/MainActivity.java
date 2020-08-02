@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity
     // データーベース名
     public static final String DATABASE_NAME = "TestDB.db";
 
-
+    ArrayList<String> quiz;
 
     String quizData[][] = {
             // {"都道府県名", "正解", "選択肢１", "選択肢２", "選択肢３"}
@@ -213,7 +213,7 @@ public class MainActivity extends AppCompatActivity
         randomNum = random.nextInt(quizArray.size());
 
         // randomNumを使って、quizArrayからクイズを一つ取り出す
-        ArrayList<String> quiz = quizArray.get(randomNum);
+        quiz = quizArray.get(randomNum);
 
         // 問題文（都道府県名）を表示
         questionLabel.setText(quiz.get(0));
@@ -265,7 +265,7 @@ public class MainActivity extends AppCompatActivity
                 db = helper.getWritableDatabase();
             }
 
-            insertData(db, SQLquiz,explanation);
+            insertData(db, quiz.get(0),quiz.get(1),quiz.get(2),quiz.get(3),quiz.get(4),explanation);
         }
 
 
@@ -297,12 +297,15 @@ public class MainActivity extends AppCompatActivity
         builder.show();
     }
 
-    private void insertData(SQLiteDatabase db, ArrayList<String> quiz, String EXquiz){
+    private void insertData(SQLiteDatabase db, String quiz0, String quiz1, String quiz2, String quiz3,String quiz4,String EXquiz){
 
         ContentValues values = new ContentValues();
-        values.put("quiz", String.valueOf(quiz));
+        values.put("quiz0", quiz0);
+        values.put("quiz1", quiz1);
+        values.put("quiz2", quiz2);
+        values.put("quiz3", quiz3);
+        values.put("quiz4", quiz4);
         values.put("explanation", EXquiz);
-
         db.insert("QUIZARRAY", null, values);
     }
 
