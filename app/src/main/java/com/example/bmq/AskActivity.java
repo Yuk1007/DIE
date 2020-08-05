@@ -22,6 +22,7 @@ public class AskActivity extends AppCompatActivity
     private Button answerBtn2;
     private Button answerBtn3;
     private Button answerBtn4;
+    private Button homeBtn;
 
     private String rightAnswer;
     private int rightAnswerCount = 0;
@@ -110,6 +111,7 @@ public class AskActivity extends AppCompatActivity
         answerBtn2 = findViewById(R.id.answerBtn2);
         answerBtn3 = findViewById(R.id.answerBtn3);
         answerBtn4 = findViewById(R.id.answerBtn4);
+        homeBtn = findViewById(R.id.homeBtn);
 
         eternalquestionLabel = findViewById(R.id.eternalquestionLabel);
 
@@ -136,6 +138,16 @@ public class AskActivity extends AppCompatActivity
 
         }
         showNextQuiz();
+
+        homeBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(getApplication(), StartActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
