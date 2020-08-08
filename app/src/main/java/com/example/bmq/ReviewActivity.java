@@ -1,15 +1,16 @@
 package com.example.bmq;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,11 +39,11 @@ public class ReviewActivity extends AppCompatActivity
     ArrayList<ArrayList<String>> quizArray = new ArrayList<>();
     ArrayList<String> explanationArray = new ArrayList<>();
 
-    Cursor cursor;
 
     ArrayList<String> quiz;
 
 
+    @SuppressLint("Assert")
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -57,45 +58,21 @@ public class ReviewActivity extends AppCompatActivity
         answerBtn3 = findViewById(R.id.answerBtn3);
         answerBtn4 = findViewById(R.id.answerBtn4);
 
-        readData();
+        Cursor cursor = null;
 
-        for (int i = 0; i < cursor.getCount(); i++)
+        if (helper == null)
         {
-            // 新しいArrayListを準備
-            ArrayList<String> tmpquizarray = new ArrayList<>();
-
-
-            // クイズデータを追加
-            tmpquizarray.add(cursor.getString(0));  // 都道府県名
-            tmpquizarray.add(cursor.getString(1));  // 正解
-            tmpquizarray.add(cursor.getString(2));  // 選択肢１
-            tmpquizarray.add(cursor.getString(3));  // 選択肢２
-            tmpquizarray.add(cursor.getString(4));  // 選択肢３
-
-            explanationArray.add(cursor.getString(5));//解説の保存（explanationArrayに解説が入ってる）
-
-            // tmpquizarrayをquizArrayに追加する
-            quizArray.add(tmpquizarray);
-            cursor.moveToNext();
-
-        }
-
-        showNextQuiz();
-    }
-
-    private void readData()
-    {
-        if(helper == null){
             helper = new OpenHelper(getApplicationContext());
         }
 
-        if(db == null){
+        if (db == null)
+        {
             db = helper.getReadableDatabase();
         }
 
         cursor = db.query(
-                "QUIZARRAY",
-                new String[] { "quiz0", "quiz1","quiz2" ,"quiz3","quiz4","EXquiz"},
+                "quizarray",
+                new String[]{"quiz0", "quiz1", "quiz2", "quiz3", "quiz4", "explanation"},
                 null,
                 null,
                 null,
@@ -104,9 +81,55 @@ public class ReviewActivity extends AppCompatActivity
         );
 
         cursor.moveToFirst();
+
+        if (cursor.getCount() <= 9)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("問題をもっと解いてね");//解説の表示に成功
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener()
+            {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i)
+                {
+                    Intent intent = new Intent(getApplicationContext(), StartActivity.class);
+                    startActivity(intent);
+
+                }
+            });
+            builder.setCancelable(false);
+            builder.show();
+        }
+        else
+        {
+            for (int i = 0; i < cursor.getCount(); i++)
+            {
+
+                // 新しいArrayListを準備
+                ArrayList<String> tmpquizarray = new ArrayList<>();
+
+
+                // クイズデータを追加
+                tmpquizarray.add(cursor.getString(0));  // 都道府県名
+                tmpquizarray.add(cursor.getString(1));  // 正解
+                tmpquizarray.add(cursor.getString(2));  // 選択肢１
+                tmpquizarray.add(cursor.getString(3));  // 選択肢２
+                tmpquizarray.add(cursor.getString(4));  // 選択肢３
+
+                explanationArray.add(cursor.getString(5));//解説の保存（explanationArrayに解説が入ってる）
+
+                // tmpquizarrayをquizArrayに追加する
+                quizArray.add(tmpquizarray);
+                cursor.moveToNext();
+
+            }
+            cursor.close();
+            showNextQuiz();
+        }
     }
 
-    private void showNextQuiz(){
+
+    private void showNextQuiz()
+    {
 
         // クイズカウントラベルを更新
         countLabel.setText("Q" + quizCount);

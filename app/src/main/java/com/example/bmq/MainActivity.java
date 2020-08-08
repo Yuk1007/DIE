@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -42,17 +43,12 @@ public class MainActivity extends AppCompatActivity
     private OpenHelper helper;
     private SQLiteDatabase db;
 
-    ArrayList<ArrayList<String>> quizArray = new ArrayList<>();
-    ArrayList<String> explanationArray = new ArrayList<>();
+    private ArrayList<ArrayList<String>> quizArray = new ArrayList<>();
+    private ArrayList<String> explanationArray = new ArrayList<>();
 
-    // データーベースのバージョン
-    public static final int DATABASE_VERSION = 1;
-    // データーベース名
-    public static final String DATABASE_NAME = "TestDB.db";
+    private ArrayList<String> quiz;
 
-    ArrayList<String> quiz;
-
-    String quizData[][] = {
+    private String[][] quizData = {
             // {"都道府県名", "正解", "選択肢１", "選択肢２", "選択肢３"}
             {"TOの意味として正しいものはどれか？", "メインの宛先", "情報を共有したいかつ、メインの受信者にも知らせたい", "情報を共有したいが、メインの相手には隠したい", "誰にも送らない"},
             {"CCの意味として正しいものはどれか？", "情報を共有したいかつ、メインの受信者にも知らせたい", "メインの宛先", "情報を共有したいが、メインの相手には隠したい", "誰にも送らない"},
@@ -96,7 +92,7 @@ public class MainActivity extends AppCompatActivity
             {"件名の例でよいものはどれか？", "ビジネスメール研修（４／６）感想のお知らせ", "ご依頼について", "出社時間について", "経理処理について"},
             {"ＣＣで届いたメールはどのように返信するのが正しいか？", "情報を共有すべき場合は「全員に返信」、それ以外は「送信者のみ」に返信", "どんな時でも「全員に返信」に返信", "どんな時でも「送信者のみ」に返信", "ＢＣＣを用いて返信"},
             {"あなたがセミナーを開いて、終了後全員にお礼のメールを送るとき、どのように返信するのが正しいか？名詞を交換していないと仮定する。", "ＢＣＣを用いて返信する", "ＣＣを用いて返信", "ＴＯを用いて一人ずつ返信", "半分はＴＯ、半分はＣＣで返信する"},
-            {"半分はＴＯ、半分はＣＣで返信する", "転送するときは前置きを付ける", "わかりやすいように編集する", "迷っても確認せず転送する", "転送内容は手元にコピーをとっておく"},
+            {"転送するときの注意点は？", "転送するときは前置きを付ける", "わかりやすいように編集する", "迷っても確認せず転送する", "転送内容は手元にコピーをとっておく"},
             {"催促メールを送るときの注意点は？", "期日を決めて、丁寧に書くようにする", "できるだけ急いでることがわかるように「まだですか？」と送る", "怒っていることがわかるように「いつになるの？」と送る", "とにかく怒っていることを伝える"},
 //            ３１
             {"メール送信時の注意点で正しくないものは？", "時間がないので急いで送信する", "誤字脱字をチェックする", "ＣＣとＢＣＣにミスがないかチェックする", "敬語のミスがないか確認する"},
@@ -109,7 +105,7 @@ public class MainActivity extends AppCompatActivity
     };
 
     //解説データ、クイズデータと配列番号は対応してる
-    String explanationData[] = {
+    private String[] explanationData = {
             "TOは必ずメールの要件を伝えたい、メインの宛先です。担当者が複数いる場合は、TOに複数人のメールアドレスを書きます。「CC」を使いたくなりますが、「CC」は「メインの宛先ではありませんが、参考に送ります」という意味があるので、必ず読んでほしい場合は「To」を使いましょう。",
             "「CC」は全員のメールアドレスが送信先に表示されるので、送信者は各関係者を知っていても受信者がお互いを知らない場合もあります。情報漏えいにあたらないよう細心の注意を払いましょう。",
             "「BCC」は、例えば複数の顧客へ同じ内容のメールを一斉に送りたい、取引先とのメールのやり取りをこっそり上司にも送りたいときなど、参考先を隠したい場合に使います。",
@@ -187,7 +183,7 @@ public class MainActivity extends AppCompatActivity
 
 
             // クイズデータを追加
-            tmpquizarray.add(quizData[i][0]);  // 都道府県名
+            tmpquizarray.add(quizData[i][0]);  // 問題
             tmpquizarray.add(quizData[i][1]);  // 正解
             tmpquizarray.add(quizData[i][2]);  // 選択肢１
             tmpquizarray.add(quizData[i][3]);  // 選択肢２
@@ -215,7 +211,7 @@ public class MainActivity extends AppCompatActivity
         // randomNumを使って、quizArrayからクイズを一つ取り出す
         quiz = quizArray.get(randomNum);
 
-        // 問題文（都道府県名）を表示
+        // 問題文を表示
         questionLabel.setText(quiz.get(0));
 
         // 正解をrightAnswerにセット
@@ -235,6 +231,8 @@ public class MainActivity extends AppCompatActivity
 
         // このクイズをquizArrayから削除
         quizArray.remove(randomNum);
+
+
     }
 
     public void checkAnswer(View view)
@@ -244,7 +242,6 @@ public class MainActivity extends AppCompatActivity
         Button answerBtn = findViewById(view.getId());
         String btnText = answerBtn.getText().toString();
 
-        ArrayList<String> SQLquiz = quizArray.get(randomNum);
         String explanation = explanationArray.get(randomNum);
 
         String alertTitle;
@@ -265,6 +262,8 @@ public class MainActivity extends AppCompatActivity
                 db = helper.getWritableDatabase();
             }
 
+            quiz = quizArray.get(randomNum);
+//          quiz(0)が問題、quiz(1)正解,quiz(2)選択肢,quiz(3)選択肢,quiz(4)選択肢
             insertData(db, quiz.get(0),quiz.get(1),quiz.get(2),quiz.get(3),quiz.get(4),explanation);
         }
 
@@ -306,7 +305,7 @@ public class MainActivity extends AppCompatActivity
         values.put("quiz3", quiz3);
         values.put("quiz4", quiz4);
         values.put("explanation", EXquiz);
-        db.insert("QUIZARRAY", null, values);
+        db.insert("quizarray", null, values);
     }
 
 }
