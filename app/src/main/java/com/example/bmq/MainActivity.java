@@ -1,15 +1,11 @@
 package com.example.bmq;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,7 +16,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-import static com.example.bmq.R.*;
+import static com.example.bmq.R.id;
+import static com.example.bmq.R.layout;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -50,6 +47,8 @@ public class MainActivity extends AppCompatActivity
     private ArrayList<String> quiz;
 
     private String quizkeep;
+
+    Cursor cursor = null;
 
     private String[][] quizData = {
             // {"都道府県名", "正解", "選択肢１", "選択肢２", "選択肢３"}
@@ -123,47 +122,47 @@ public class MainActivity extends AppCompatActivity
                     "・役職名\n" +
                     "・名前\n" +
                     "・敬称",
-                    "「部長」「課長」などの役職名は「様」と同様に敬称なので、正しい書き方は、以下のとおりです。\n" +
+            "「部長」「課長」などの役職名は「様」と同様に敬称なので、正しい書き方は、以下のとおりです。\n" +
                     "・○○部　山口部長\n" +
                     "・○○部　部長　山口様",
             "団体向けの宛名では「○○株式会社御中」または「○○株式会社　△△部御中」と書きます。\n",
             "送信先が部署全体や、複数の取引先等の場合は「各位」を使います。\n" +
                     "○○株式会社　××部　各位\n" +
-                    "お取引先　各位\n" ,
+                    "お取引先　各位\n",
             "手紙と違って、時候の挨拶はいらないです。",
 //            １１
             "ビジネスメールでは、本文の後に「結びの言葉」を入れます。\n" +
                     "例、「何卒よろしくお願いいたします」「お手数をおかけしますが、どうぞよろしくお願いいたします」",
             "・会社名、部署名\n" +
-            "・名前\n" +
-            "・住所\n" +
-            "・電話番号、FAX番号\n" +
-            "・メールアドレス\n" +
-            "・Webサイト名、URL\n" +
-            "一般的に、会社では署名のテンプレートが用意されていることが多いので、それを書き換えましょう。",
+                    "・名前\n" +
+                    "・住所\n" +
+                    "・電話番号、FAX番号\n" +
+                    "・メールアドレス\n" +
+                    "・Webサイト名、URL\n" +
+                    "一般的に、会社では署名のテンプレートが用意されていることが多いので、それを書き換えましょう。",
             "添付ファイルを送るときは、容量や形式、ウィルス感染に気を付け、ファイルを送る旨を文面に記述しましょう。",
             "宛先の確認を再度行い、誤字脱字をチェックするようにしましょう",
             "件名はわかりやすく書くことが重要なので、一目でわかるように書きましょう。",
             "「会社名、部署名、役職、氏名」の順に記載します\n" +
-            "組織や団体に送信する場合、「御中」を使います。「御中」に敬意が含まれているため「○○様 御中」は間違った使い方となります",
+                    "組織や団体に送信する場合、「御中」を使います。「御中」に敬意が含まれているため「○○様 御中」は間違った使い方となります",
             "急用の時はメールではなく電話を使うようにしましょう",
             "何度も相手とやり取りをしているとRe:Re:Re:と重ねって失礼なので、適度に書き直すようにしましょう。",
             "これはPREP法という話法で、結論→理由→事例→まとめの順で文書などを作成します",
             "who:誰が\n" +
-            "whom:誰に\n" +
-            "when:日時\n" +
-            "where:場所\n" +
-            "what:何を\n" +
-            "why:理由\n" +
-            "how to:手段\n" +
-            "how many:量\n" +
-            "how much:金額\n" +
-            "これらを書きましょう",
+                    "whom:誰に\n" +
+                    "when:日時\n" +
+                    "where:場所\n" +
+                    "what:何を\n" +
+                    "why:理由\n" +
+                    "how to:手段\n" +
+                    "how many:量\n" +
+                    "how much:金額\n" +
+                    "これらを書きましょう",
 //            21
             "自分が使っているソフトが相手のパソコンに閲覧できるソフトが入っているとは限らないので、相手に確認をとる必要があります",
             "お体にご自愛ください→どうぞご自愛ください\n" +
-            "ご苦労様です→お疲れ様です\n" +
-            "～殿→～様",
+                    "ご苦労様です→お疲れ様です\n" +
+                    "～殿→～様",
             "部長と様を重ねてはいけません。御社は話し言葉です。御中はメールで使いません",
             "ビジネスメールではテキスト形式で送るほうが良いです",
             "文字幅が長くても読みづらいので、20～30字くらいにしましょう",
@@ -288,19 +287,51 @@ public class MainActivity extends AppCompatActivity
         {
             alertTitle = "不正解...";
 
-            if(helper == null){
+            if (helper == null)
+            {
                 helper = new OpenHelper(getApplicationContext());
             }
 
-            if(db == null){
+            if (db == null)
+            {
                 db = helper.getWritableDatabase();
             }
 
             quiz = quizArray.get(randomNum);
 
-            // quiz(0)が問題、quiz(1)正解,quiz(2)選択肢,quiz(3)選択肢,quiz(4)選択肢
-            insertData(db, quizkeep,quiz.get(0),quiz.get(1),quiz.get(2),quiz.get(3),explanation);
+            cursor = db.query(
+                    "quizarray",
+                    new String[]{"quiz0", "quiz1", "quiz2", "quiz3", "quiz4", "explanation"},
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+            );
 
+            cursor.moveToFirst();
+
+            if(cursor.getCount() <= 0)
+            {
+                insertData(db, quizkeep, quiz.get(0), quiz.get(1), quiz.get(2), quiz.get(3), explanation);
+            }
+
+            for (int i = 0; i < cursor.getCount(); i++)
+            {
+                if (!cursor.getString(1).equals(quiz.get(0)))
+                {
+                    insertData(db, quizkeep, quiz.get(0), quiz.get(1), quiz.get(2), quiz.get(3), explanation);
+                    break;
+                }
+                else
+                {
+                    cursor.moveToNext();
+                }
+            }
+//            // quizkeepが問題、quiz(0)正解,quiz(1)選択肢,quiz(2)選択肢,quiz(3)選択肢
+//            insertData(db, quizkeep, quiz.get(0), quiz.get(1), quiz.get(2), quiz.get(3), explanation);
+
+            cursor.close();
             // このクイズをquizArrayから削除
             quizArray.remove(randomNum);
         }
@@ -334,7 +365,8 @@ public class MainActivity extends AppCompatActivity
         builder.show();
     }
 
-    private void insertData(SQLiteDatabase db, String quiz0, String quiz1, String quiz2, String quiz3,String quiz4,String EXquiz){
+    private void insertData(SQLiteDatabase db, String quiz0, String quiz1, String quiz2, String quiz3, String quiz4, String EXquiz)
+    {
 
         ContentValues values = new ContentValues();
         values.put("quiz0", quiz0);
