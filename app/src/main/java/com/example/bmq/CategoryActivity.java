@@ -100,7 +100,7 @@ public class CategoryActivity extends AppCompatActivity
         });
 
         Button categoryBtn7 = findViewById(R.id.category_Btn7);
-        categoryBtn6.setOnClickListener(new View.OnClickListener()
+        categoryBtn7.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)

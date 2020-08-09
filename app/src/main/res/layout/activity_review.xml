@@ -5,8 +5,8 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#dfe"
-        tools:context=".ApologizeActivity"
+        android:background="@drawable/question"
+        tools:context=".ReviewActivity"
 >
 
     <LinearLayout
@@ -16,21 +16,21 @@
             android:layout_width="match_parent">
 
 
+        <Button
+                android:id="@+id/homeBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="150dp"
+                android:text="●" />
+
         <TextView
                 android:id="@+id/countLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:text="Q1"
-                android:textSize="22sp"
-                android:layout_marginTop="30dp"/>
-
-<!--        <TextView-->
-<!--                android:id="@+id/eternalquestionLabel"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="eternalQuestion"-->
-<!--                android:textSize="24sp"-->
-<!--                android:layout_marginTop="90dp"/>-->
+                android:textSize="22sp" />
 
         <TextView
                 android:id="@+id/questionLabel"
@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:text="Question"
                 android:textSize="24sp"
-                android:layout_marginTop="80dp"/>
+                android:layout_marginTop="60dp"/>
 
         <TextView
                 android:text="@string/main"
@@ -84,7 +84,6 @@
                 android:text="answer4"
                 android:layout_marginTop="6dp"
                 android:onClick="checkAnswer"/>
-
 
     </LinearLayout>
 </ScrollView>

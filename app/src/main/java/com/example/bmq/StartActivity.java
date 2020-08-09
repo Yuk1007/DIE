@@ -27,7 +27,7 @@ public class StartActivity extends AppCompatActivity
 
     public void againCategory(View view)
     {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), ReviewActivity.class);
         startActivity(intent);
     }
 }

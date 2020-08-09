@@ -1,7 +1,9 @@
 package com.example.bmq;
 
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +18,8 @@ import java.util.Random;
 public class ThanksActivity extends AppCompatActivity
 {
 
+    private SQLiteDatabase db;
+    private OpenHelper helper;
     private TextView countLabel;
     private TextView questionLabel;
     private Button answerBtn1;
@@ -30,10 +34,13 @@ public class ThanksActivity extends AppCompatActivity
 
     private int randomNum = 0;
 
-    ArrayList<ArrayList<String>> quizArray = new ArrayList<>();
-    ArrayList<String> explanationArray = new ArrayList<>();
+    private ArrayList<ArrayList<String>> quizArray = new ArrayList<>();
+    private ArrayList<String> explanationArray = new ArrayList<>();
+    private ArrayList<String> quiz;
 
-    String quizData[][] = {
+    private String quizkeep;
+
+    private String[][] quizData = {
             // {"都道府県名", "正解", "選択肢１", "選択肢２", "選択肢３"}
             {"さて、この度は○○を頂戴しまして、誠にありがとうございます。有難く拝受させていただきます。", "結構な品", "(品名)", "ありがたいもの", "つまらないもの"},
             {"(社外)本日はお忙しいところ、打ち合わせのお時間を割いていただきましたこと、○○○○。", "心よりお礼申し上げます", "本当にありがとうございます", "感謝してます", "ありがとう"},
@@ -43,7 +50,7 @@ public class ThanksActivity extends AppCompatActivity
     };
 
     //解説データ、クイズデータと配列番号は対応してる
-    String explanationData[] = {
+    private String[] explanationData = {
             "贈り物やお土産を頂いた際は、「結構な品」を使いましょう。「結構な」とは目上の人に素晴らしい、立派なという表現をする言葉です。", "社外の方に、深い感謝の気持ちを表す際は、「心より御礼申し上げます。」を使います。", "何か自分にやってもらったときは、この表現を使いましょう。何をしてもらったかを忘れずに書くとなお良いです。", "お礼を繰り返し書く場合、「重ねて」を使いましょう", "午前中の出来事に関するお礼のメールはその日の夕方までには送るのが良いです。夜に起こったことならば、次の日が良いでしょう。"
     };
 
@@ -96,13 +103,17 @@ public class ThanksActivity extends AppCompatActivity
         randomNum = random.nextInt(quizArray.size());
 
         // randomNumを使って、quizArrayからクイズを一つ取り出す
-        ArrayList<String> quiz = quizArray.get(randomNum);
+        quiz = quizArray.get(randomNum);
+
 
         // 問題文（都道府県名）を表示
         questionLabel.setText(quiz.get(0));
 
         // 正解をrightAnswerにセット
         rightAnswer = quiz.get(1);
+
+        // 削除する前に保存しとく
+        quizkeep = quiz.get(0);
 
         // クイズ配列から問題文（都道府県名）を削除
         quiz.remove(0);
@@ -116,8 +127,6 @@ public class ThanksActivity extends AppCompatActivity
         answerBtn3.setText(quiz.get(2));
         answerBtn4.setText(quiz.get(3));
 
-        // このクイズをquizArrayから削除
-        quizArray.remove(randomNum);
     }
 
     public void checkAnswer(View view)
@@ -134,10 +143,31 @@ public class ThanksActivity extends AppCompatActivity
         {
             alertTitle = "正解!";
             rightAnswerCount++;
+
+            // このクイズをquizArrayから削除
+            quizArray.remove(randomNum);
         }
         else
         {
             alertTitle = "不正解...";
+
+            if (helper == null)
+            {
+                helper = new OpenHelper(getApplicationContext());
+            }
+
+            if (db == null)
+            {
+                db = helper.getWritableDatabase();
+            }
+
+            quiz = quizArray.get(randomNum);
+
+            // quiz(0)が問題、quiz(1)正解,quiz(2)選択肢,quiz(3)選択肢,quiz(4)選択肢
+            insertData(db, quizkeep, quiz.get(0), quiz.get(1), quiz.get(2), quiz.get(3), explanation);
+
+            // このクイズをquizArrayから削除
+            quizArray.remove(randomNum);
         }
 
         // ダイアログを作成
@@ -169,4 +199,15 @@ public class ThanksActivity extends AppCompatActivity
     }
 
 
+    private void insertData(SQLiteDatabase db, String quiz0, String quiz1, String quiz2, String quiz3, String quiz4, String EXquiz){
+
+        ContentValues values = new ContentValues();
+        values.put("quiz0", quiz0);
+        values.put("quiz1", quiz1);
+        values.put("quiz2", quiz2);
+        values.put("quiz3", quiz3);
+        values.put("quiz4", quiz4);
+        values.put("explanation", EXquiz);
+        db.insert("quizarray", null, values);
+    }
 }
