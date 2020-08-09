@@ -1,7 +1,9 @@
 package com.example.bmq;
 
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +17,8 @@ import java.util.Random;
 
 public class ApologizeActivity extends AppCompatActivity
 {
-
+    private SQLiteDatabase db;
+    private OpenHelper helper;
     private TextView countLabel;
     private TextView questionLabel;
     private Button answerBtn1;
@@ -30,10 +33,11 @@ public class ApologizeActivity extends AppCompatActivity
 
     private int randomNum = 0;
 
-    ArrayList<ArrayList<String>> quizArray = new ArrayList<>();
-    ArrayList<String> explanationArray = new ArrayList<>();
+    private ArrayList<ArrayList<String>> quizArray = new ArrayList<>();
+    private ArrayList<String> explanationArray = new ArrayList<>();
+    private ArrayList<String> quiz;
 
-    String quizData[][] = {
+    private String[][] quizData = {
             // {"都道府県名", "正解", "選択肢１", "選択肢２", "選択肢３"}
             {"(社内)この度は、発送の報告が遅れてしまい、○○○○。", "申し訳ございません", "申し訳ありません", "ごめんなさい", "すみません"},
 
@@ -45,7 +49,7 @@ public class ApologizeActivity extends AppCompatActivity
             ,};
 
     //解説データ、クイズデータと配列番号は対応してる
-    String explanationData[] = {"社内でのお詫びは、「申し訳ございません」で問題ないです", "社外の方へは、社内よりも深いお詫びの気持ちを表しましょう。", "社内全体で事態の重大さを認識していることを表す表現です。", "上司などに緊急の報告をする際は、お詫びよりも先に起こったことを報告します。「取り急ぎ」という言葉がよく使われます。"};
+    private String[] explanationData = {"社内でのお詫びは、「申し訳ございません」で問題ないです", "社外の方へは、社内よりも深いお詫びの気持ちを表しましょう。", "社内全体で事態の重大さを認識していることを表す表現です。", "上司などに緊急の報告をする際は、お詫びよりも先に起こったことを報告します。「取り急ぎ」という言葉がよく使われます。"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -95,7 +99,7 @@ public class ApologizeActivity extends AppCompatActivity
         randomNum = random.nextInt(quizArray.size());
 
         // randomNumを使って、quizArrayからクイズを一つ取り出す
-        ArrayList<String> quiz = quizArray.get(randomNum);
+        quiz = quizArray.get(randomNum);
 
         // 問題文（都道府県名）を表示
         questionLabel.setText(quiz.get(0));
@@ -137,6 +141,20 @@ public class ApologizeActivity extends AppCompatActivity
         else
         {
             alertTitle = "不正解...";
+
+            if (helper == null)
+            {
+                helper = new OpenHelper(getApplicationContext());
+            }
+
+            if (db == null)
+            {
+                db = helper.getWritableDatabase();
+            }
+
+            quiz = quizArray.get(randomNum);
+//          quiz(0)が問題、quiz(1)正解,quiz(2)選択肢,quiz(3)選択肢,quiz(4)選択肢
+            insertData(db, quiz.get(0), quiz.get(1), quiz.get(2), quiz.get(3), quiz.get(4), explanation);
         }
 
         // ダイアログを作成
@@ -167,4 +185,15 @@ public class ApologizeActivity extends AppCompatActivity
         builder.show();
     }
 
+    private void insertData(SQLiteDatabase db, String quiz0, String quiz1, String quiz2, String quiz3,String quiz4,String EXquiz){
+
+        ContentValues values = new ContentValues();
+        values.put("quiz0", quiz0);
+        values.put("quiz1", quiz1);
+        values.put("quiz2", quiz2);
+        values.put("quiz3", quiz3);
+        values.put("quiz4", quiz4);
+        values.put("explanation", EXquiz);
+        db.insert("quizarray", null, values);
+    }
 }
