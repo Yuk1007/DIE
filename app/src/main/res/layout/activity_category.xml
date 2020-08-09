@@ -1,24 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
                                                    xmlns:tools="http://schemas.android.com/tools"
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
-                                                   android:background="#dfe"
+    android:background="@drawable/question"
                                                    tools:context=".CategoryActivity" tools:ignore="MissingDefaultResource">
 
-
+    <Button
+        android:id="@+id/homeBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/homebutton"
+        app:layout_constraintBottom_toTopOf="@+id/category_Btn1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.948"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.355" />
 
     <Button
         android:id="@+id/category_Btn1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/button"
         android:text="小問集合"
         android:textSize="30sp"
+        android:layout_marginTop="50dp"
         app:layout_constraintBottom_toTopOf="@+id/category_Btn2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,6 +40,7 @@
         android:layout_height="wrap_content"
         android:text="お礼"
         android:textSize="30sp"
+        android:background="@drawable/button2"
         app:layout_constraintBottom_toTopOf="@+id/category_Btn3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -40,6 +53,7 @@
         android:layout_height="wrap_content"
         android:text="お詫び"
         android:textSize="30sp"
+        android:background="@drawable/button"
         app:layout_constraintBottom_toTopOf="@+id/category_Btn4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -52,6 +66,7 @@
         android:layout_height="wrap_content"
         android:text="催促"
         android:textSize="30sp"
+        android:background="@drawable/button2"
         app:layout_constraintBottom_toTopOf="@+id/category_Btn5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -64,6 +79,7 @@
         android:layout_height="wrap_content"
         android:text="依頼"
         android:textSize="30sp"
+        android:background="@drawable/button"
         app:layout_constraintBottom_toTopOf="@+id/category_Btn6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -76,6 +92,7 @@
         android:layout_height="wrap_content"
         android:text="報告"
         android:textSize="30sp"
+        android:background="@drawable/button2"
         app:layout_constraintBottom_toTopOf="@+id/category_Btn7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -88,6 +105,7 @@
             android:layout_height="wrap_content"
             android:text="案内"
             android:textSize="30sp"
+        android:background="@drawable/button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

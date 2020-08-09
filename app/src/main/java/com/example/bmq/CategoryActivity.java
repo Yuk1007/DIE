@@ -16,6 +16,7 @@ public class CategoryActivity extends AppCompatActivity
     private Button categoryBtn4;
     private Button categoryBtn5;
     private Button categoryBtn6;
+    private Button homeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -24,14 +25,9 @@ public class CategoryActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_category);
 
-        /*Button sendButton = findViewById(R.id.send_button);
-        sendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), MainActivity.class);
-                startActivity(intent);
-            }
-        });*/
+        homeBtn = findViewById(R.id.homeBtn);
+
+
 
         Button categoryBtn1 = findViewById(R.id.category_Btn1);
         categoryBtn1.setOnClickListener(new View.OnClickListener()
@@ -106,6 +102,16 @@ public class CategoryActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 Intent intent = new Intent(getApplication(), GuideActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        homeBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(getApplication(), StartActivity.class);
                 startActivity(intent);
             }
         });

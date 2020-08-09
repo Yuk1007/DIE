@@ -22,6 +22,7 @@ public class ReportActivity extends AppCompatActivity
     private Button answerBtn2;
     private Button answerBtn3;
     private Button answerBtn4;
+    private Button homeBtn;
 
     private String rightAnswer;
     private int rightAnswerCount = 0;
@@ -60,15 +61,11 @@ public class ReportActivity extends AppCompatActivity
                 "平素よりご愛顧頂き誠にありがとうございます。\n" +
                 "株式会社○○・営業部の佐藤です。\n" +
                 "\n" +
-                "さて、この度当社では、\n" +
-                "社内業務の効率化および\n" +
-                "働き方改革の一環として、\n" +
+                "省略\n" +
                 "誠に勝手ながら営業時間を下記の通り\n" +
                 "変更させていただくこととなりました。\n" +
                 "\n" +
-                "○○様にはご不便をおかけすることとなり\n" +
-                "大変恐縮ではございますが、\n" +
-                "これまで以上にサービス向上に誠心誠意努めて参りますので、\n" +
+                "省略\n" +
                 "何卒ご理解ご協力を賜わりますようお願い申し上げます。\n" +
                 "\n" +
                 "(1)\n" +
@@ -109,6 +106,7 @@ public class ReportActivity extends AppCompatActivity
         answerBtn2 = findViewById(R.id.answerBtn2);
         answerBtn3 = findViewById(R.id.answerBtn3);
         answerBtn4 = findViewById(R.id.answerBtn4);
+        homeBtn = findViewById(R.id.homeBtn);
 
         eternalquestionLabel = findViewById(R.id.eternalquestionLabel);
 
@@ -135,6 +133,16 @@ public class ReportActivity extends AppCompatActivity
 
         }
         showNextQuiz();
+
+        homeBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(getApplication(), StartActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 

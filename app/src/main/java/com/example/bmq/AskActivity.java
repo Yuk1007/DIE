@@ -21,6 +21,7 @@ public class AskActivity extends AppCompatActivity
     private Button answerBtn2;
     private Button answerBtn3;
     private Button answerBtn4;
+    private Button homeBtn;
 
     private String rightAnswer;
     private int rightAnswerCount = 0;
@@ -63,36 +64,22 @@ public class AskActivity extends AppCompatActivity
             "②\n" +
             "\n" +
             "\n" +
-            "一般社団法人日本ビジネスメール協会の山田太郎です。\n" +
+            "平素よりご愛顧頂き誠にありがとうございます。\n" +
+            "株式会社●●●●の山田太郎です。\n" +
             "\n" +
-            "●●●●のお打ち合わせ日程についてご相談です。\n" +
+            "先日ご依頼いただきました●●の打ち合わせ日程についてご相談です。\n" +
             "\n" +
-            "候補日をお送りしますので、●●様のご都合を③\n" +
+            "下記に候補日から、●●様のご都合のいい日を③\n" +
             "\n" +
             "＜候補日時＞\n" +
             "------------------------------------------\n" +
-            "●月●日（●）●時～●時\n" +
-            "●月●日（●）●時～●時\n" +
-            "●月●日（●）●時～●時\n" +
-            "●月●日（●）●時～●時\n" +
-            "\n" +
-            "※予定時間は1時間\n" +
+            "省略\n" +
             "------------------------------------------\n" +
             "④\n" +
             "\n" +
             "調整しますので、候補日を複数いただけると幸いです。\n" +
             "\n" +
-            "よろしくお願いいたします。\n" +
-            "\n" +
-            "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n" +
-            "一般社団法人日本ビジネスメール協会　山田 太郎（YAMADA Taro）\n" +
-            "〒101-0052 東京都千代田区神田小川町2-1 KIMURA BUILDING 5階\n" +
-            "電話 03-5577-3210 / FAX 03-5577-3238 / メール info@businessmail.or.jp\n" +
-            "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n" +
-            "一般社団法人日本ビジネスメール協会　https://businessmail.or.jp/\n" +
-            "アイ・コミュニケーション公式サイト　http://www.sc-p.jp/\n" +
-            "ビジネスメールの教科書　https://business-mail.jp/\n" +
-            "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+            "よろしくお願いいたします。\n"
             ;
 
 
@@ -109,6 +96,7 @@ public class AskActivity extends AppCompatActivity
         answerBtn2 = findViewById(R.id.answerBtn2);
         answerBtn3 = findViewById(R.id.answerBtn3);
         answerBtn4 = findViewById(R.id.answerBtn4);
+        homeBtn = findViewById(R.id.homeBtn);
 
         TextView eternalquestionLabel = findViewById(R.id.eternalquestionLabel);
 
@@ -135,6 +123,16 @@ public class AskActivity extends AppCompatActivity
 
         }
         showNextQuiz();
+
+        homeBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(getApplication(), StartActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 

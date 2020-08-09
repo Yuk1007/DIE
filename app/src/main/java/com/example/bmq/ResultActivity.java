@@ -1,5 +1,6 @@
 package com.example.bmq;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -49,7 +50,7 @@ public class ResultActivity extends AppCompatActivity
 
     public void moreQuiz(View view)
     {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
         startActivity(intent);
     }
 

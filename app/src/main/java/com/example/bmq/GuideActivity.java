@@ -21,6 +21,7 @@ public class GuideActivity extends AppCompatActivity
     private Button answerBtn2;
     private Button answerBtn3;
     private Button answerBtn4;
+    private Button homeBtn;
 
     private String rightAnswer;
     private int rightAnswerCount = 0;
@@ -85,10 +86,7 @@ public class GuideActivity extends AppCompatActivity
             "様々なゲームや催しを予定しておりますので\n" +
             "皆様奮ってご参加ください。\n" +
             "\n" +
-            "・日時：○月○日(○)00：00～00：00\n" +
-            "・場所：○○○○○○○○○○○○\n" +
-            "・会場：○○「○○○○」\n" +
-            "・会費：0,000円\n" +
+            "省略\n" +
             "\n" +
             "(1)\n" +
             "\n" +
@@ -115,6 +113,7 @@ public class GuideActivity extends AppCompatActivity
         answerBtn2 = findViewById(R.id.answerBtn2);
         answerBtn3 = findViewById(R.id.answerBtn3);
         answerBtn4 = findViewById(R.id.answerBtn4);
+        homeBtn = findViewById(R.id.homeBtn);
 
         TextView eternalquestionLabel = findViewById(R.id.eternalquestionLabel);
 
@@ -141,6 +140,16 @@ public class GuideActivity extends AppCompatActivity
 
         }
         showNextQuiz();
+
+        homeBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(getApplication(), StartActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
