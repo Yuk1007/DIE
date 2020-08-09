@@ -33,7 +33,6 @@ public class ReportActivity extends AppCompatActivity
     private ArrayList<ArrayList<String>> quizArray = new ArrayList<>();
     private ArrayList<String> explanationArray = new ArrayList<>();
 
-
     private String[][] quizData = {
             // {"都道府県名", "正解", "選択肢１", "選択肢２", "選択肢３"}
 

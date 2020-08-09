@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity
 
     private ArrayList<String> quiz;
 
-    int debug = 35;
+    private String quizkeep;
 
     private String[][] quizData = {
             // {"都道府県名", "正解", "選択肢１", "選択肢２", "選択肢３"}
@@ -219,6 +219,9 @@ public class MainActivity extends AppCompatActivity
         // 正解をrightAnswerにセット
         rightAnswer = quiz.get(1);
 
+        // 削除する前に保存しとく
+        quizkeep = quiz.get(0);
+
         // クイズ配列から問題文（都道府県名）を削除
         quiz.remove(0);
 
@@ -230,9 +233,6 @@ public class MainActivity extends AppCompatActivity
         answerBtn2.setText(quiz.get(1));
         answerBtn3.setText(quiz.get(2));
         answerBtn4.setText(quiz.get(3));
-
-        // このクイズをquizArrayから削除
-        quizArray.remove(randomNum);
 
 //        debug--;
     }
@@ -251,6 +251,8 @@ public class MainActivity extends AppCompatActivity
         {
             alertTitle = "正解!";
             rightAnswerCount++;
+            // このクイズをquizArrayから削除
+            quizArray.remove(randomNum);
         }
         else
         {
@@ -265,8 +267,12 @@ public class MainActivity extends AppCompatActivity
             }
 
             quiz = quizArray.get(randomNum);
-//          quiz(0)が問題、quiz(1)正解,quiz(2)選択肢,quiz(3)選択肢,quiz(4)選択肢
-            insertData(db, quiz.get(0),quiz.get(1),quiz.get(2),quiz.get(3),quiz.get(4),explanation);
+
+            // quiz(0)が問題、quiz(1)正解,quiz(2)選択肢,quiz(3)選択肢,quiz(4)選択肢
+            insertData(db, quizkeep,quiz.get(0),quiz.get(1),quiz.get(2),quiz.get(3),explanation);
+
+            // このクイズをquizArrayから削除
+            quizArray.remove(randomNum);
         }
 
 

@@ -38,6 +38,8 @@ public class ThanksActivity extends AppCompatActivity
     private ArrayList<String> explanationArray = new ArrayList<>();
     private ArrayList<String> quiz;
 
+    private String quizkeep;
+
     private String[][] quizData = {
             // {"都道府県名", "正解", "選択肢１", "選択肢２", "選択肢３"}
             {"さて、この度は○○を頂戴しまして、誠にありがとうございます。有難く拝受させていただきます。", "結構な品", "(品名)", "ありがたいもの", "つまらないもの"},
@@ -103,11 +105,15 @@ public class ThanksActivity extends AppCompatActivity
         // randomNumを使って、quizArrayからクイズを一つ取り出す
         quiz = quizArray.get(randomNum);
 
+
         // 問題文（都道府県名）を表示
         questionLabel.setText(quiz.get(0));
 
         // 正解をrightAnswerにセット
         rightAnswer = quiz.get(1);
+
+        // 削除する前に保存しとく
+        quizkeep = quiz.get(0);
 
         // クイズ配列から問題文（都道府県名）を削除
         quiz.remove(0);
@@ -121,8 +127,6 @@ public class ThanksActivity extends AppCompatActivity
         answerBtn3.setText(quiz.get(2));
         answerBtn4.setText(quiz.get(3));
 
-        // このクイズをquizArrayから削除
-        quizArray.remove(randomNum);
     }
 
     public void checkAnswer(View view)
@@ -139,6 +143,9 @@ public class ThanksActivity extends AppCompatActivity
         {
             alertTitle = "正解!";
             rightAnswerCount++;
+
+            // このクイズをquizArrayから削除
+            quizArray.remove(randomNum);
         }
         else
         {
@@ -155,8 +162,11 @@ public class ThanksActivity extends AppCompatActivity
             }
 
             quiz = quizArray.get(randomNum);
-//          quiz(0)が問題、quiz(1)正解,quiz(2)選択肢,quiz(3)選択肢,quiz(4)選択肢
-            insertData(db, quiz.get(0), quiz.get(1), quiz.get(2), quiz.get(3), quiz.get(4), explanation);
+            // quiz(0)が問題、quiz(1)正解,quiz(2)選択肢,quiz(3)選択肢,quiz(4)選択肢
+            insertData(db, quizkeep, quiz.get(1), quiz.get(2), quiz.get(3), quiz.get(4), explanation);
+
+            // このクイズをquizArrayから削除
+            quizArray.remove(randomNum);
         }
 
         // ダイアログを作成

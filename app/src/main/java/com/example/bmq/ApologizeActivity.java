@@ -37,6 +37,8 @@ public class ApologizeActivity extends AppCompatActivity
     private ArrayList<String> explanationArray = new ArrayList<>();
     private ArrayList<String> quiz;
 
+    private String quizkeep;
+
     private String[][] quizData = {
             // {"都道府県名", "正解", "選択肢１", "選択肢２", "選択肢３"}
             {"(社内)この度は、発送の報告が遅れてしまい、○○○○。", "申し訳ございません", "申し訳ありません", "ごめんなさい", "すみません"},
@@ -46,7 +48,7 @@ public class ApologizeActivity extends AppCompatActivity
             , {"今回は本当に申し訳ございませんでした。このようなことが再び起こらぬよう、○○○○。", "社内全体で改善に努めます", "日々精進します", "頑張ります", "勉強しなおします"}
 
             , {"お疲れ様です。佐藤浩二です。○○○○。このたび、お預かりしていた新企画の資料を、取引先への移動中に紛失してしまいました。", "取り急ぎ、ご報告があります", "緊急の報告です", "急ぎの連絡です", "やばいです"}
-            ,};
+            };
 
     //解説データ、クイズデータと配列番号は対応してる
     private String[] explanationData = {"社内でのお詫びは、「申し訳ございません」で問題ないです", "社外の方へは、社内よりも深いお詫びの気持ちを表しましょう。", "社内全体で事態の重大さを認識していることを表す表現です。", "上司などに緊急の報告をする際は、お詫びよりも先に起こったことを報告します。「取り急ぎ」という言葉がよく使われます。"};
@@ -107,6 +109,9 @@ public class ApologizeActivity extends AppCompatActivity
         // 正解をrightAnswerにセット
         rightAnswer = quiz.get(1);
 
+        // 削除する前に保存しとく
+        quizkeep = quiz.get(0);
+
         // クイズ配列から問題文（都道府県名）を削除
         quiz.remove(0);
 
@@ -119,8 +124,6 @@ public class ApologizeActivity extends AppCompatActivity
         answerBtn3.setText(quiz.get(2));
         answerBtn4.setText(quiz.get(3));
 
-        // このクイズをquizArrayから削除
-        quizArray.remove(randomNum);
     }
 
     public void checkAnswer(View view)
@@ -137,6 +140,9 @@ public class ApologizeActivity extends AppCompatActivity
         {
             alertTitle = "正解!";
             rightAnswerCount++;
+
+            // このクイズをquizArrayから削除
+            quizArray.remove(randomNum);
         }
         else
         {
@@ -153,8 +159,12 @@ public class ApologizeActivity extends AppCompatActivity
             }
 
             quiz = quizArray.get(randomNum);
-//          quiz(0)が問題、quiz(1)正解,quiz(2)選択肢,quiz(3)選択肢,quiz(4)選択肢
-            insertData(db, quiz.get(0), quiz.get(1), quiz.get(2), quiz.get(3), quiz.get(4), explanation);
+
+            // quiz(0)が問題、quiz(1)正解,quiz(2)選択肢,quiz(3)選択肢,quiz(4)選択肢
+            insertData(db, quizkeep, quiz.get(1), quiz.get(2), quiz.get(3), quiz.get(4), explanation);
+
+            // このクイズをquizArrayから削除
+            quizArray.remove(randomNum);
         }
 
         // ダイアログを作成
@@ -185,7 +195,8 @@ public class ApologizeActivity extends AppCompatActivity
         builder.show();
     }
 
-    private void insertData(SQLiteDatabase db, String quiz0, String quiz1, String quiz2, String quiz3,String quiz4,String EXquiz){
+    private void insertData(SQLiteDatabase db, String quiz0, String quiz1, String quiz2, String quiz3, String quiz4, String EXquiz)
+    {
 
         ContentValues values = new ContentValues();
         values.put("quiz0", quiz0);
