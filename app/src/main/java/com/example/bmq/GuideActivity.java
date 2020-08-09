@@ -17,7 +17,6 @@ public class GuideActivity extends AppCompatActivity
 {
     private TextView countLabel;
     private TextView questionLabel;
-    private TextView eternalquestionLabel;
     private Button answerBtn1;
     private Button answerBtn2;
     private Button answerBtn3;
@@ -30,11 +29,11 @@ public class GuideActivity extends AppCompatActivity
 
     private int randomNum = 0;
 
-    ArrayList<ArrayList<String>> quizArray = new ArrayList<>();
-    ArrayList<String> explanationArray = new ArrayList<>();
+    private ArrayList<ArrayList<String>> quizArray = new ArrayList<>();
+    private ArrayList<String> explanationArray = new ArrayList<>();
 
 
-    String quizData[][] = {
+    private String[][] quizData = {
             // {"都道府県名", "正解", "選択肢１", "選択肢２", "選択肢３"}
 
             {"(A)において、接待の参加率を高めるため簡単に明記しておくとよいものは","開催経緯","参加確定者の名前","会場の候補","簡潔にするためになにも書かないほうが良い"},
@@ -47,10 +46,10 @@ public class GuideActivity extends AppCompatActivity
         };
 
     //解説データ、クイズデータと配列番号は対応してる
-    String explanationData[] =
+    private String[] explanationData =
             {"開催経緯を付記することで、参加者側にもわかりやすく参加率を高める効果があります。","日程や場所を決める際は希望を伺い、相手の都合を最優先に考慮します。","参加予定人数を記入する必要はありません。","日程の調整を円滑に進めるため、返信締め切りの日を決めておくとよいです。","一般的に社内向けに使う場合「わが社」対外的に自社のことを指す場合「弊社」客観性の高いシーンで自社のことをいう場合「当社」。「御社」は相手の会社を指すため不適切。"," 「～の上」というのは、「…したのち、…した結果、…に基づいて」を意味する。ここでは「よく調べて吟味する」を意味するご検討の上が適切"};
 
-    String externalQuizData = "メールA\n"+"\n"+"件名：ご会食日程のお伺い\n" +
+    private String externalQuizData = "メールA\n"+"\n"+"件名：ご会食日程のお伺い\n" +
             "\n" +
             "○○株式会社\n" +
             "販売促進部　本部長　○○様\n" +
@@ -117,7 +116,7 @@ public class GuideActivity extends AppCompatActivity
         answerBtn3 = findViewById(R.id.answerBtn3);
         answerBtn4 = findViewById(R.id.answerBtn4);
 
-        eternalquestionLabel = findViewById(R.id.eternalquestionLabel);
+        TextView eternalquestionLabel = findViewById(R.id.eternalquestionLabel);
 
         eternalquestionLabel.setText(externalQuizData);
 

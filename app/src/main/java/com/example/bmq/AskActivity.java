@@ -17,7 +17,6 @@ public class AskActivity extends AppCompatActivity
 {
     private TextView countLabel;
     private TextView questionLabel;
-    private TextView eternalquestionLabel;
     private Button answerBtn1;
     private Button answerBtn2;
     private Button answerBtn3;
@@ -31,10 +30,10 @@ public class AskActivity extends AppCompatActivity
     private int randomNum = 0;
 
     ArrayList<ArrayList<String>> quizArray = new ArrayList<>();
-    ArrayList<String> explanationArray = new ArrayList<>();
+    private ArrayList<String> explanationArray = new ArrayList<>();
 
 
-    String quizData[][] = {
+    private String[][] quizData = {
             // {"都道府県名", "正解", "選択肢１", "選択肢２", "選択肢３"}
 
             {"①で正しいのは", "株式会社●●●●●●●●様"," ●●●●様 株式会社●●●●", "●●●●(会社名)●●●●様","●●●●様●●●●(会社名)"},
@@ -47,7 +46,7 @@ public class AskActivity extends AppCompatActivity
         };
 
     //解説データ、クイズデータと配列番号は対応してる
-    String explanationData[] =
+    private String[] explanationData =
             {"相手が起業に属している場合、会社名と部署名を書いてから、名前を書く。その際敬称の「様」を忘れないようにしましょう。相手の会社名の「株式会社」や「(株)」「(有)」などは略してはいけません。",
                     "2、3、4、依頼のメールでは「～していただけないでしょうか。」など問いかけ型のフレーズを利用することで、相手の依頼されている抵抗感を軽減させてくれます。","2、3、4、依頼のメールでは「～していただけないでしょうか。」など問いかけ型のフレーズを利用することで、相手の依頼されている抵抗感を軽減させてくれます。",
         "2、3、4、依頼のメールでは「～していただけないでしょうか。」など問いかけ型のフレーズを利用することで、相手の依頼されている抵抗感を軽減させてくれます。",
@@ -60,7 +59,7 @@ public class AskActivity extends AppCompatActivity
         "■その他：食事なし、禁煙、部屋は極力広めで /n" +
         "宿泊手配する際に必要な条件を全て列挙する。相手に手間をかけさせないように業務を円滑に進めることを心掛け、依頼内容や希望をできるだけ具体的に示す。"};
 
-    String externalQuizData = "①\n" +
+    private String externalQuizData = "①\n" +
             "②\n" +
             "\n" +
             "\n" +
@@ -111,7 +110,7 @@ public class AskActivity extends AppCompatActivity
         answerBtn3 = findViewById(R.id.answerBtn3);
         answerBtn4 = findViewById(R.id.answerBtn4);
 
-        eternalquestionLabel = findViewById(R.id.eternalquestionLabel);
+        TextView eternalquestionLabel = findViewById(R.id.eternalquestionLabel);
 
         eternalquestionLabel.setText(externalQuizData);
 
