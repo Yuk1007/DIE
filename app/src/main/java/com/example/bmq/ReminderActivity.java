@@ -3,6 +3,7 @@ package com.example.bmq;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -176,8 +177,39 @@ public class ReminderActivity extends AppCompatActivity
 
             quiz = quizArray.get(randomNum);
 
-            // quiz(0)が問題、quiz(1)正解,quiz(2)選択肢,quiz(3)選択肢,quiz(4)選択肢
-            insertData(db, quizkeep,quiz.get(0),quiz.get(1),quiz.get(2),quiz.get(3),explanation);
+            Cursor cursor = db.query(
+                    "quizarray",
+                    new String[]{"quiz0", "quiz1", "quiz2", "quiz3", "quiz4", "explanation"},
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+            );
+
+            cursor.moveToFirst();
+
+            if(cursor.getCount() <= 0)
+            {
+                insertData(db, quizkeep, quiz.get(0), quiz.get(1), quiz.get(2), quiz.get(3), explanation);
+            }
+
+            for (int i = 0; i < cursor.getCount(); i++)
+            {
+                if (!cursor.getString(1).equals(quiz.get(0)))
+                {
+                    insertData(db, quizkeep, quiz.get(0), quiz.get(1), quiz.get(2), quiz.get(3), explanation);
+                    break;
+                }
+                else
+                {
+                    cursor.moveToNext();
+                }
+            }
+//            // quizkeepが問題、quiz(0)正解,quiz(1)選択肢,quiz(2)選択肢,quiz(3)選択肢
+//            insertData(db, quizkeep, quiz.get(0), quiz.get(1), quiz.get(2), quiz.get(3), explanation);
+
+            cursor.close();
 
             // このクイズをquizArrayから削除
             quizArray.remove(randomNum);
@@ -211,7 +243,8 @@ public class ReminderActivity extends AppCompatActivity
         builder.show();
     }
 
-    private void insertData(SQLiteDatabase db, String quiz0, String quiz1, String quiz2, String quiz3,String quiz4,String EXquiz){
+    private void insertData(SQLiteDatabase db, String quiz0, String quiz1, String quiz2, String quiz3, String quiz4, String EXquiz)
+    {
 
         ContentValues values = new ContentValues();
         values.put("quiz0", quiz0);
