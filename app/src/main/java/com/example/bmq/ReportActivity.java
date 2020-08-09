@@ -30,11 +30,11 @@ public class ReportActivity extends AppCompatActivity
 
     private int randomNum = 0;
 
-    ArrayList<ArrayList<String>> quizArray = new ArrayList<>();
-    ArrayList<String> explanationArray = new ArrayList<>();
+    private ArrayList<ArrayList<String>> quizArray = new ArrayList<>();
+    private ArrayList<String> explanationArray = new ArrayList<>();
 
 
-    String quizData[][] = {
+    private String[][] quizData = {
             // {"都道府県名", "正解", "選択肢１", "選択肢２", "選択肢３"}
 
             {"Aについて、取引先へのお知らせメールでは","現状・変更内容を簡潔に曖昧な表現は避けて知らせる。","現状・変更内容を詳しく曖昧な表現は避けて知らせる。","現状・変更内容を簡潔に断定的な表現は避けて知らせる。","現状・変更内容を詳しく断定的な表現は避けて知らせる。"},
@@ -45,7 +45,7 @@ public class ReportActivity extends AppCompatActivity
     };
 
     //解説データ、クイズデータと配列番号は対応してる
-    String explanationData[] =
+    private String[] explanationData =
         {"現状・変更内容を簡潔にまとめて知らせるようにします。曖昧な表現はできるだけ避けて、明確な情報を伝えるように心掛けます。",
                 " 【変更前】00:00〜00:00（20xx年00月00日まで）/n" +
                 "【変更後】00:00〜00:00（20xx年00月00日から） のように相手に伝わりやすいよう変更前と後の日程を明確に示す。",
@@ -54,7 +54,7 @@ public class ReportActivity extends AppCompatActivity
                         "・現段階での概算見積り\n" +
                         "のように\n簡潔にわかりやすく明確に伝える必要がある"};
 
-        String externalQuizData = "メールA\n"+"件名：営業時間変更のお知らせ\n" +
+        private String externalQuizData = "メールA\n"+"件名：営業時間変更のお知らせ\n" +
                 "○○株式会社\n" +
                 "営業部　○○様\n" +
                 "\n" +
