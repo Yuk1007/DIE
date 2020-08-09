@@ -162,8 +162,9 @@ public class ThanksActivity extends AppCompatActivity
             }
 
             quiz = quizArray.get(randomNum);
+
             // quiz(0)が問題、quiz(1)正解,quiz(2)選択肢,quiz(3)選択肢,quiz(4)選択肢
-            insertData(db, quizkeep, quiz.get(1), quiz.get(2), quiz.get(3), quiz.get(4), explanation);
+            insertData(db, quizkeep, quiz.get(0), quiz.get(1), quiz.get(2), quiz.get(3), explanation);
 
             // このクイズをquizArrayから削除
             quizArray.remove(randomNum);
