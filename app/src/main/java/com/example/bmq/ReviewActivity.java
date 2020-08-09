@@ -38,9 +38,7 @@ public class ReviewActivity extends AppCompatActivity
     ArrayList<ArrayList<String>> quizArray = new ArrayList<>();
     ArrayList<String> explanationArray = new ArrayList<>();
 
-
     ArrayList<String> quiz;
-
 
     @SuppressLint("Assert")
     @Override
